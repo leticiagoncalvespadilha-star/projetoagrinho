@@ -1,33 +1,77 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto Agrinho - Agro Forte, Futuro Sustentável</title>
-    <style>
-        /* Estilos Gerais */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+def exibir_menu():
+    print("\n" + "="*50)
+    print("      PAINEL AGRINHO: FAZENDA SUSTENTÁVEL")
+    print("="*50)
+    print("1. Avaliar Equilíbrio da Fazenda")
+    print("2. Ver Dicas de Sustentabilidade")
+    print("3. Sair")
+    print("="*50)
 
-        body {
-            background-color: #f4f9f4;
-            color: #333;
-            line-height: 1.6;
-        }
+def avaliar_fazenda():
+    print("\n--- QUANTIFIQUE SUA PRODUÇÃO E IMPACTO ---")
+    
+    # Coleta de dados do usuário
+    try:
+        producao = float(input("Produtividade da colheita (em toneladas): "))
+        area_protegida = float(input("Área de preservação/reserva legal (em hectares): "))
+        area_total = float(input("Área total da fazenda (em hectares): "))
+        uso_agua = input("Utiliza técnicas de economia de água (como gotejamento)? (S/N): ").upper()
+    except ValueError:
+        print("Por favor, digite valores numéricos válidos.")
+        return
 
-        /* Cabeçalho */
-        header {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
-            color: white;
-            text-align: center;
-            padding: 100px 20px;
-        }
+    # Cálculos lógicos
+    percentual_preservado = (area_protegida / area_total) * 100
+    
+    print("\n" + "-"*30)
+    print("      RESULTADO DA ANÁLISE")
+    print("-"*30)
+    print(f"- Produtividade atual: {producao} toneladas.")
+    print(f"- Percentual de área preservada: {percentual_preservado:.1f}%")
 
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-transform: uppercase;
+    # Sistema de pontuação/equilíbrio
+    pontos_sustentabilidade = 0
+    
+    if percentual_preservado >= 20: # Limite legal básico no Brasil (pode variar por região)
+        pontos_sustentabilidade += 2
+    if uso_agua == 'S':
+        pontos_sustentabilidade += 2
+    if producao > 0:
+        pontos_sustentabilidade += 1
+
+    # Diagnóstico final
+    print("\nDIAGNÓSTICO:")
+    if pontos_sustentabilidade >= 4:
+        print("🏆 PARABÉNS! Sua fazenda reflete o 'Agro Forte e Sustentável'.")
+        print("Você produz bem mantendo o equilíbrio com o meio ambiente.")
+    elif pontos_sustentabilidade >= 2:
+        print("⚠️ ALERTA: Produção regular, mas o equilíbrio ambiental pode melhorar.")
+        print("Considere expandir suas áreas verdes e otimizar recursos.")
+    else:
+        print("🚨 CRÍTICO: Alto risco ambiental ou baixa produtividade.")
+        print("É necessário rever as práticas agrícolas urgentemente.")
+
+def exibir_dicas():
+    print("\n" + "="*50)
+    print("   PRÁTICAS PARA O FUTURO SUSTENTÁVEL")
+    print("="*50)
+    print("1. Rotação de Culturas: Melhora a saúde do solo sem excesso de químicos.")
+    print("2. Agricultura de Precisão: Uso de tecnologia (drones/sensores) para evitar desperdícios.")
+    print("3. Integração Lavoura-Pecuária-Floresta (ILPF): Otimiza o espaço e recupera o solo.")
+    print("4. Manejo Integrado de Pragas (MIP): Reduz o uso de defensivos agrícolas utilizando controle biológico.")
+    print("="*50)
+
+# Loop principal do programa
+while True:
+    exibir_menu()
+    opcao = input("Escolha uma opção (1-3): ")
+    
+    if opcao == '1':
+        avaliar_fazenda()
+    elif opcao == '2':
+        exibir_dicas()
+    elif opcao == '3':
+        print("\nObrigado por ajudar a construir o futuro do agro! Até logo.")
+        break
+    else:
+        print("Opção inválida. Tente novamente.")
